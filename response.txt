@@ -1,0 +1,340 @@
+{
+    "content": {
+        "hasNextPage": "yes",
+        "includingPhrases": {
+            "info": [
+                "Что искали со словом «test»",
+                " — ",
+                "932 090 показов в месяц"
+            ],
+            "numberCaption": [
+                "Показов в месяц",
+                {
+                    "content": [
+                        {
+                            "content": "В результатах подбора выводится статистика запросов на Яндексе, включающих заданное вами слово или словосочетание (слева), и похожих запросов (справа).",
+                            "tag": "p"
+                        },
+                        {
+                            "content": "Цифры рядом с каждым запросом в результатах подбора слов дают предварительный прогноз числа показов в месяц, которое вы получите, выбрав этот запрос в качестве ключевого слова. Так, цифра рядом со словом «телефон» обозначает число показов по всем запросам со словом «телефон»: «купить телефон», «сотовый телефон», «купить сотовый телефон», «купить новый сотовый телефон в крапинку» и т.п.",
+                            "tag": "p"
+                        },
+                        {
+                            "content": "Если вы хотите узнать количество показов для пользователей из определенного региона, кликните по «Все регионы».",
+                            "tag": "p"
+                        }
+                    ],
+                    "block": "b-tooltip"
+                }
+            ],
+            "phraseCaption": "Статистика по словам",
+            "items": [
+                {
+                    "number": "932 132",
+                    "phrase": "testing"
+                },
+                {
+                    "number": "932 090",
+                    "phrase": "test"
+                },
+                {
+                    "number": "932 090",
+                    "phrase": "test testing"
+                },
+                {
+                    "number": "80 013",
+                    "phrase": "speed testing"
+                },
+                {
+                    "number": "80 013",
+                    "phrase": "speed testing test"
+                },
+                {
+                    "number": "80 013",
+                    "phrase": "test speed"
+                },
+                {
+                    "number": "69 542",
+                    "phrase": "test ru"
+                },
+                {
+                    "number": "59 064",
+                    "phrase": "spotlight test"
+                },
+                {
+                    "number": "52 023",
+                    "phrase": "https testing"
+                },
+                {
+                    "number": "52 011",
+                    "phrase": "https test"
+                },
+                {
+                    "number": "48 373",
+                    "phrase": "test booklet"
+                },
+                {
+                    "number": "38 726",
+                    "phrase": "https test ru"
+                },
+                {
+                    "number": "37 360",
+                    "phrase": "spotlight test booklet"
+                },
+                {
+                    "number": "36 031",
+                    "phrase": "testing 2"
+                },
+                {
+                    "number": "36 014",
+                    "phrase": "test 2"
+                },
+                {
+                    "number": "34 674",
+                    "phrase": "online test"
+                },
+                {
+                    "number": "34 674",
+                    "phrase": "online testing"
+                },
+                {
+                    "number": "31 279",
+                    "phrase": "testing 5"
+                },
+                {
+                    "number": "29 449",
+                    "phrase": "english test"
+                },
+                {
+                    "number": "29 449",
+                    "phrase": "testing english"
+                },
+                {
+                    "number": "29 316",
+                    "phrase": "testing 1"
+                },
+                {
+                    "number": "29 299",
+                    "phrase": "test 1"
+                },
+                {
+                    "number": "29 024",
+                    "phrase": "test drive"
+                },
+                {
+                    "number": "29 022",
+                    "phrase": "driven testing"
+                },
+                {
+                    "number": "28 735",
+                    "phrase": "testing 3"
+                },
+                {
+                    "number": "28 721",
+                    "phrase": "test 3"
+                },
+                {
+                    "number": "26 502",
+                    "phrase": "testing 4"
+                },
+                {
+                    "number": "26 486",
+                    "phrase": "test 4"
+                },
+                {
+                    "number": "25 071",
+                    "phrase": "testing am"
+                },
+                {
+                    "number": "25 068",
+                    "phrase": "being tested"
+                },
+                {
+                    "number": "25 064",
+                    "phrase": "am is are test"
+                },
+                {
+                    "number": "21 395",
+                    "phrase": "test unlimited"
+                },
+                {
+                    "number": "21 300",
+                    "phrase": "test drive unlimited"
+                },
+                {
+                    "number": "20 534",
+                    "phrase": "test pdf"
+                },
+                {
+                    "number": "20 534",
+                    "phrase": "testing pdf"
+                },
+                {
+                    "number": "20 494",
+                    "phrase": "testing скачать"
+                },
+                {
+                    "number": "18 772",
+                    "phrase": "test 7"
+                },
+                {
+                    "number": "17 830",
+                    "phrase": "testing com"
+                },
+                {
+                    "number": "17 816",
+                    "phrase": "test com"
+                },
+                {
+                    "number": "17 816",
+                    "phrase": "testing test com"
+                },
+                {
+                    "number": "16 747",
+                    "phrase": "field tested"
+                },
+                {
+                    "number": "16 747",
+                    "phrase": "field testing"
+                },
+                {
+                    "number": "15 638",
+                    "phrase": "module testing"
+                },
+                {
+                    "number": "15 638",
+                    "phrase": "test module"
+                },
+                {
+                    "number": "15 084",
+                    "phrase": "testing id"
+                },
+                {
+                    "number": "15 070",
+                    "phrase": "id test"
+                },
+                {
+                    "number": "15 006",
+                    "phrase": "spotlight 5 test"
+                },
+                {
+                    "number": "13 832",
+                    "phrase": "test 8"
+                },
+                {
+                    "number": "13 755",
+                    "phrase": "ielts test"
+                },
+                {
+                    "number": "13 755",
+                    "phrase": "ielts testing"
+                }
+            ]
+        },
+        "statLimitText": "Статистика показов ограничена 41 страницей",
+        "statLimitReached": "",
+        "currentPage": "1",
+        "regions": "0",
+        "lastUpdate": "Последнее обновление: 08.02.2025",
+        "block": "b-word-statistics",
+        "phrasesAssociations": {
+            "info": "Запросы, похожие на «test»",
+            "numberCaption": [
+                "Показов в месяц",
+                {
+                    "content": [
+                        {
+                            "content": "В результатах подбора выводится статистика запросов на Яндексе, включающих заданное вами слово или словосочетание (слева), и похожих запросов (справа).",
+                            "tag": "p"
+                        },
+                        {
+                            "content": "Цифры рядом с каждым запросом в результатах подбора слов дают предварительный прогноз числа показов в месяц, которое вы получите, выбрав этот запрос в качестве ключевого слова. Так, цифра рядом со словом «телефон» обозначает число показов по всем запросам со словом «телефон»: «купить телефон», «сотовый телефон», «купить сотовый телефон», «купить новый сотовый телефон в крапинку» и т.п.",
+                            "tag": "p"
+                        },
+                        {
+                            "content": "Если вы хотите узнать количество показов для пользователей из определенного региона, кликните по «Все регионы».",
+                            "tag": "p"
+                        }
+                    ],
+                    "block": "b-tooltip"
+                }
+            ],
+            "phraseCaption": "Статистика по словам",
+            "items": [
+                {
+                    "number": "932 090",
+                    "phrase": "test"
+                },
+                {
+                    "number": "5 777 807",
+                    "phrase": "проверка"
+                },
+                {
+                    "number": "76",
+                    "phrase": "тест из чего я состою"
+                },
+                {
+                    "number": "2 376 031",
+                    "phrase": "исследование"
+                },
+                {
+                    "number": "939 078",
+                    "phrase": "испытание"
+                },
+                {
+                    "number": "3 275",
+                    "phrase": "тестцентр"
+                },
+                {
+                    "number": "3 769",
+                    "phrase": "тесть это"
+                },
+                {
+                    "number": "127 714",
+                    "phrase": "проверьте себя"
+                },
+                {
+                    "number": "17 357",
+                    "phrase": "тесттер"
+                },
+                {
+                    "number": "798",
+                    "phrase": "проверьте себя проверочная работа"
+                },
+                {
+                    "number": "7 536",
+                    "phrase": "проверка мчд"
+                },
+                {
+                    "number": "6 331",
+                    "phrase": "интересные тесты"
+                },
+                {
+                    "number": "47 184",
+                    "phrase": "tester"
+                },
+                {
+                    "number": "2 451",
+                    "phrase": "тестировщик это"
+                },
+                {
+                    "number": "7 836 266",
+                    "phrase": "тесто"
+                },
+                {
+                    "number": "1 390",
+                    "phrase": "поверь все будет хорошо"
+                },
+                {
+                    "number": "39 825",
+                    "phrase": "тест на тип"
+                },
+                {
+                    "number": "8 988",
+                    "phrase": "что такое тестирование"
+                }
+            ]
+        }
+    },
+    "block": "l-content"
+}

@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.log
+
+# Virtual environment
+venv/
+.env/
+*.env
+
+# pytest
+*.pytest_cache/
+*.pytest_cache/*
+.cache/
+.cache/*
+
+# Playwright
+playwright/.cache/
+playwright/.cache/*
+
+# Allure reports
+allure-results/
+allure-report/
+screenshots/
+
+# Logs and Reports
+*.log
+report.html
+*.xml
+*.json
+assets/
+reports/
+
+# VS Code
+.vscode/
+.settings/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
