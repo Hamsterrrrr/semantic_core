@@ -1,3 +1,6 @@
+"""
+Модуль для работы с API XmlRiver
+"""
 import aiohttp
 import asyncio
 import logging
@@ -11,15 +14,22 @@ class XmlRiverApi:
     """
     Класс для работы с API XmlRiver
     """
-    def __init__(self, user_id: str, api_key: str):
+    def __init__(self, user_id: str, api_key: str, base_url: str = None):
         self.user_id = user_id
         self.api_key = api_key
-        self.base_url = "http://xmlriver.com/wordstat/new/json"  # Обновленный URL согласно документации
+        self.base_url = base_url or "http://xmlriver.com/wordstat/new/json"
         self.logger = logging.getLogger(__name__)
 
     async def get_data(self, query: str, timeout: int = 60) -> Optional[Dict[str, Any]]:
         """
         Получает данные по запросу с таймаутом
+        
+        Args:
+            query: Поисковый запрос
+            timeout: Таймаут запроса в секундах
+            
+        Returns:
+            Словарь с данными или None в случае ошибки
         """
         try:
             # Заменяем амперсанд на %26 согласно документации
@@ -49,8 +59,7 @@ class XmlRiverApi:
                             self.logger.info(f"Получен ответ от XmlRiver API для '{query}'")
                             
                             # Сохраняем JSON для отладки
-                            with open(f"response_{query.replace(' ', '_')}.json", "w", encoding="utf-8") as f:
-                                json.dump(data, f, ensure_ascii=False, indent=4)
+                            self._save_debug_data(f"response_{query.replace(' ', '_')}.json", data)
                             
                             # Преобразуем формат данных к нужному виду
                             formatted_data = self._format_data(data, query)
@@ -58,8 +67,7 @@ class XmlRiverApi:
                         except json.JSONDecodeError as e:
                             self.logger.error(f"Ошибка декодирования JSON: {str(e)}")
                             response_text = await response.text()
-                            with open(f"error_response_{query.replace(' ', '_')}.txt", "w", encoding="utf-8") as f:
-                                f.write(response_text)
+                            self._save_debug_data(f"error_response_{query.replace(' ', '_')}.txt", response_text)
                             return self._create_test_data(query)
                     else:
                         response_text = await response.text()
@@ -72,6 +80,13 @@ class XmlRiverApi:
     def _format_data(self, data: Dict[str, Any], query: str) -> Dict[str, Any]:
         """
         Преобразует формат данных API в нужный формат
+        
+        Args:
+            data: Данные от API
+            query: Исходный запрос
+            
+        Returns:
+            Отформатированные данные
         """
         try:
             # Создаем структуру, аналогичную старому формату
@@ -112,6 +127,12 @@ class XmlRiverApi:
     def _create_test_data(self, query: str) -> Dict[str, Any]:
         """
         Создает тестовые данные в формате ответа API
+        
+        Args:
+            query: Исходный запрос
+            
+        Returns:
+            Тестовые данные
         """
         self.logger.info(f"Создание тестовых данных для '{query}'")
         
@@ -142,62 +163,41 @@ class XmlRiverApi:
         }
         
         # Сохраняем тестовые данные
-        with open(f"test_data_{query.replace(' ', '_')}.json", "w", encoding="utf-8") as f:
-            json.dump(test_data, f, ensure_ascii=False, indent=4)
+        self._save_debug_data(f"test_data_{query.replace(' ', '_')}.json", test_data)
         
         return test_data
-
-    async def _try_alternative_url(self, query: str, timeout: int = 60) -> Optional[Dict[str, Any]]:
+    
+    def _save_debug_data(self, filename: str, data: Any) -> None:
         """
-        Пробует альтернативный URL для API
+        Сохраняет данные для отладки
+        
+        Args:
+            filename: Имя файла
+            data: Данные для сохранения
         """
         try:
-            # Пробуем другой URL из документации
-            alt_url = "https://xmlriver.com/api/wordstat/json"
+            from config import SAVE_DEBUG_FILES
             
-            params = {
-                "user_id": self.user_id,
-                "api_key": self.api_key,
-                "phrase": query,
-                "regions": "1"  # Москва
-            }
+            if not SAVE_DEBUG_FILES:
+                return
             
-            self.logger.info(f"Альтернативный URL: {alt_url}, Параметры: {params}")
-            
-            async with aiohttp.ClientSession() as session:
-                async with session.get(
-                    alt_url, 
-                    params=params,
-                    timeout=aiohttp.ClientTimeout(total=timeout)
-                ) as response:
-                    if response.status == 200:
-                        try:
-                            data = await response.json(content_type=None)
-                            self.logger.info(f"Получен ответ от альтернативного URL для '{query}'")
-                            
-                            # Сохраняем JSON для отладки
-                            with open(f"alt_response_{query.replace(' ', '_')}.json", "w", encoding="utf-8") as f:
-                                json.dump(data, f, ensure_ascii=False, indent=4)
-                            
-                            return data
-                        except json.JSONDecodeError:
-                            response_text = await response.text()
-                            self.logger.error(f"Не удалось распарсить ответ от альтернативного URL как JSON для '{query}'")
-                            
-                            # Сохраняем ответ для анализа
-                            with open(f"alt_response_{query.replace(' ', '_')}.html", "w", encoding="utf-8") as f:
-                                f.write(response_text)
-                            
-                            return None
-                    else:
-                        response_text = await response.text()
-                        self.logger.error(f"Ошибка альтернативного API: {response.status} для '{query}'. Ответ: {response_text[:200]}...")
-                        return None
+            if isinstance(data, dict):
+                with open(filename, "w", encoding="utf-8") as f:
+                    json.dump(data, f, ensure_ascii=False, indent=4)
+            else:
+                with open(filename, "w", encoding="utf-8") as f:
+                    f.write(str(data))
         except Exception as e:
-            self.logger.error(f"Ошибка при запросе к альтернативному API для '{query}': {str(e)}")
-            return None
+            self.logger.error(f"Ошибка при сохранении отладочных данных: {str(e)}")
 
     @staticmethod
     def write_json(data: dict, filename: str = "results.json"):
+        """
+        Сохраняет данные в JSON-файл
+        
+        Args:
+            data: Данные для сохранения
+            filename: Имя файла
+        """
         with open(filename, "w", encoding='utf-8') as file:
-            json.dump(data, file, ensure_ascii=False, indent=4)
+            json.dump(data, file, ensure_ascii=False, indent=4) 
