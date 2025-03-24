@@ -1,8 +1,9 @@
 import asyncio
+import json
 import logging
-
+from config import XMLRIVER_USER_ID, XMLRIVER_API_KEY
 import pandas as pd
-# from semantic_core import SemanticModel
+from semantic_core import SemanticModel
 from src.ai.gpt_client import GPTProcessor
 from src.processing.text_collector import  SiteTextCollector
 from src.utils import refine_output, validate_phrases
@@ -65,81 +66,134 @@ async def fetch_site_text(url: str) -> str:
     """
     Загружает и возвращает очищенный текст с указанного URL.
     """
-    collector = SiteTextCollector()
-    text = await collector.get_text(url)
-    if not text:
-        logger.error("Не удалось получить текст с сайта.")
-    return text
+    try:
+        collector = SiteTextCollector()
+        text = await collector.get_text(url)
+        if not text.strip():
+            logger.error("Не удалось получить или очистить текст с сайта.")
+            return ""
+        return text
+    except Exception as e:
+        logger.error(f"Ошибка при загрузке текста с сайта: {str(e)}")
+        return ""
 
 
 async def process_gpt(site_text: str):
     """
-    Получает категории и генерирует SEO‑фразы с помощью GPTProcessor.
-    Возвращает кортеж (categories, seo_phrases).
+    Получает категории и генерирует SEO-фразы с помощью GPTProcessor.
+    Возвращает кортеж (categories, stop_words).
     """
-    gpt_processor = GPTProcessor()
+    try:
+        gpt_processor = GPTProcessor()
+        logger.info("Извлечение категорий...")
+        raw_categories = await gpt_processor.get_categories(site_text[:3000])
+        logger.info(f"Извлечённые категории: {raw_categories}")
 
-    logger.info("Извлечение категорий...")
-    raw_categories = await gpt_processor.get_categories(site_text)
-    # categories = refine_output(raw_categories)
-    logger.info(f"Извлечённые категории: {raw_categories}")
+        # Загрузка существующих стоп-слов
+        logger.info("Загрузка существующих стоп-слов...")
+        with open("minus.json", "r", encoding="utf-8") as f:
+            minus_data = json.load(f)
+            existing_stops = (
+                minus_data["common_words"] +
+                minus_data["rf_cities_without_moscow"] +
+                minus_data["moscow_popular_cities"]
+            )
 
-    logger.info("Генерация SEO‑фраз...")
-    raw_phrases = await gpt_processor.generate_phrases(raw_categories, site_text)
-    logger.info(f"Сгенерированные SEO‑фразы: {raw_phrases}")
+        # Генерация новых стоп-слов с фильтрацией
+        logger.info("Генерация динамических стоп-слов...")
+        dynamic_stop_words = await gpt_processor.generate_dynamic_stop_words(
+            text=site_text,
+            existing_stops=existing_stops
+        )
+        logger.info(f"Сгенерированные стоп-слова: {dynamic_stop_words}")
+        return raw_categories, dynamic_stop_words
+    except Exception as e:
+        logger.error(f"Ошибка при обработке GPT: {str(e)}")
+        return [], []
 
-    return raw_categories, raw_phrases
+
+async def fetch_api_data(api: XmlRiverApi, categories: list, stop_words: list) -> dict:
+    """
+    Получает данные из API XmlRiver для каждой категории.
+    Возвращает словарь с данными по категориям.
+    """
+    data_by_columns = {}
+    for item in categories:
+        try:
+            logger.info(f"Получение данных для категории '{item}'...")
+            api_data = await api.get_data(item)
+
+            if api_data and "content" in api_data and "includingPhrases" in api_data["content"]:
+                items = api_data["content"]["includingPhrases"].get("items", [])
+                if items:
+                    data_by_columns[item] = [
+                        f"{entry.get('phrase', '')} (показы: {entry.get('number', 0)})"
+                        for entry in items if entry.get('phrase') not in stop_words
+                    ]
+                    logger.info(f"Добавлено {len(data_by_columns[item])} записей для '{item}'.")
+                    
+                else:
+                    data_by_columns[item] = []
+                    logger.warning(f"Нет данных для запроса '{item}'.")
+            else:
+                logger.warning(f"Некорректный ответ API для запроса '{item}'.")
+        except Exception as e:
+            logger.error(f"Ошибка при получении данных для категории '{item}': {str(e)}")
+            data_by_columns[item] = []
+    logger.info(f"Data by columns: {data_by_columns}")
+    return data_by_columns
+
+
+async def end_filter(site_text: str, end_data: dict) -> dict:
+    """
+    Фильтрует конечные данные с помощью GPTProcessor.
+    """
+    try:
+        gpt_processor = GPTProcessor()
+        logger.info("Фильтрация конечных данных...")
+        filtered_data = await gpt_processor.generate_end_data(site_text, end_data)
+        logger.info(f"Конечный результат: {filtered_data}")
+        return filtered_data
+    except Exception as e:
+        logger.error(f"Ошибка при фильтрации конечных данных: {str(e)}")
+        return {}
+
+
+async def save_results_to_csv(data_by_columns: dict, filename: str = "results_with_counts.csv"):
+    """
+    Сохраняет результаты в CSV-файл.
+    """
+    try:
+        max_length = max(len(data) for data in data_by_columns.values())
+        for key in data_by_columns:
+            data_by_columns[key].extend([""] * (max_length - len(data_by_columns[key])))
+
+        df = pd.DataFrame(data_by_columns)
+        df.to_csv(filename, index=False, encoding='utf-8')
+        logger.info(f"Данные успешно сохранены в '{filename}'.")
+    except Exception as e:
+        logger.error(f"Ошибка при сохранении данных в CSV: {str(e)}")
 
 
 async def main():
-    url = "https://www.kirpich.ru/shop/kirpich/"  # Замените на нужный URL
+    # Инициализация с использованием конфигурации
+    xmlriver_api = XmlRiverApi(
+        user_id=XMLRIVER_USER_ID,
+        api_key=XMLRIVER_API_KEY
+    )
+    gpt_processor = GPTProcessor()
+    semantic_model = SemanticModel(xmlriver_api, gpt_processor)
 
-    site_text = await fetch_site_text(url)
-    categories, seo_phrases = await process_gpt(site_text)
+    # Обработка URL
+    url = "https://moscow-stom.ru/services/"  # Замените на нужный URL
+    results = await semantic_model.process_url(url)
 
-    api = XmlRiverApi(user_id="16705", api_key="c9fa00b3e6cebd7787b193ed2f2afb316ab931ff")
-    # Создаем словарь для хранения данных по каждому запросу
-    data_by_columns = {}
+    # Сохранение результатов
+    if results:
+        await semantic_model.save_results(results)
+    else:
+        logger.error("Не удалось получить результаты")
 
-# Проходим по категориям и SEO-фразам
-    for item in categories + seo_phrases:
-        # Получаем данные от API
-        api_data = await api.get_data(item)
-        
-        # Проверяем, что данные корректны и содержат нужные ключи
-        if api_data and "content" in api_data and "includingPhrases" in api_data["content"]:
-            print(f"Статистика по запросу '{item}':")
-            
-            # Извлекаем элементы из ответа API
-            items = api_data["content"]["includingPhrases"].get("items", [])
-            
-            if items:
-                # Формируем список данных для текущего запроса
-                data_by_columns[item] = [
-                    f"{entry.get('phrase', '')} (показы: {entry.get('number', 0)})"
-                    for entry in items
-                ]
-                print(f"Добавлено {len(data_by_columns[item])} записей для '{item}'.")
-            else:
-                # Если данных нет, добавляем пустой список
-                data_by_columns[item] = []
-                print(f"Нет данных для запроса '{item}'.")
-        else:
-            print(f"Некорректный ответ API для запроса '{item}'.")
 
-    # Определяем максимальную длину данных среди всех запросов
-    max_length = max(len(data) for data in data_by_columns.values())
-
-    # Дополняем данные пустыми значениями, чтобы все столбцы имели одинаковую длину
-    for key in data_by_columns:
-        data_by_columns[key].extend([""] * (max_length - len(data_by_columns[key])))
-
-    # Создаем DataFrame из данных
-    df = pd.DataFrame(data_by_columns)
-
-    # Сохраняем данные в CSV
-    df.to_csv("results_with_counts.csv", index=False, encoding='utf-8')
-    print("Данные сохранены в 'results_with_counts.csv'.")
-        
 if __name__ == "__main__":
     asyncio.run(main())
