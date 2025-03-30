@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Создать новое семантическое ядро</h5>
+            </div>
+            <div class="card-body">
+                <form action="/submit" method="post">
+                    <div class="mb-3">
+                        <label for="url" class="form-label">URL сайта</label>
+                        <input type="url" class="form-control" id="url" name="url" required 
+                               placeholder="https://example.com">
+                        <div class="form-text">Введите URL сайта для анализа и создания семантического ядра</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Запустить анализ</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">Наши инструменты</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="bi bi-search"></i> Семантическое ядро</h5>
+                                <p class="card-text">Анализ сайта, определение категорий и ключевых запросов</p>
+                                <a href="/" class="btn btn-sm btn-outline-primary">Использовать</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="bi bi-boxes"></i> Фиды товаров</h5>
+                                <p class="card-text">Генерация фидов для маркетплейсов и рекламных систем</p>
+                                <a href="/feeds" class="btn btn-sm btn-outline-primary">Использовать</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">Последние задачи</h5>
+            </div>
+            <div class="card-body">
+                <ul class="nav nav-tabs" id="tasksTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="seo-tab" data-bs-toggle="tab" data-bs-target="#seo" type="button" role="tab">
+                            SEO задачи
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="feeds-tab" data-bs-toggle="tab" data-bs-target="#feeds" type="button" role="tab">
+                            Фиды
+                        </button>
+                    </li>
+                </ul>
+                
+                <div class="tab-content mt-3" id="tasksTabContent">
+                    <div class="tab-pane fade show active" id="seo" role="tabpanel">
+                        {% if seo_tasks %}
+                            {% for task_id, task_info in seo_tasks.items() %}
+                                <div class="task-card card mb-3">
+                                    <div class="card-body">
+                                        <h6 class="card-title d-flex justify-content-between align-items-center">
+                                            Задача #{{ task_id[:8] }}
+                                            <span class="badge status-badge {{ task_info.status }}">
+                                                {% if task_info.status == "pending" %}
+                                                    В очереди
+                                                {% elif task_info.status == "in_progress" %}
+                                                    В процессе
+                                                {% elif task_info.status == "processing" %}
+                                                    Обработка
+                                                {% elif task_info.status == "completed" %}
+                                                    Завершено
+                                                {% elif task_info.status == "error" %}
+                                                    Ошибка
+                                                {% else %}
+                                                    {{ task_info.status }}
+                                                {% endif %}
+                                            </span>
+                                        </h6>
+                                        <p class="card-text">{{ task_info.message }}</p>
+                                        
+                                        {% if task_info.status == "completed" and task_info.files %}
+                                            <div class="mt-3">
+                                                <strong>Результаты:</strong>
+                                                <a href="{{ task_info.files.csv }}" class="file-link">
+                                                    <i class="bi bi-filetype-csv file-icon"></i> CSV
+                                                </a>
+                                                <a href="{{ task_info.files.xlsx }}" class="file-link">
+                                                    <i class="bi bi-filetype-xlsx file-icon"></i> Excel
+                                                </a>
+                                                <a href="{{ task_info.files.html }}" class="file-link">
+                                                    <i class="bi bi-filetype-html file-icon"></i> HTML
+                                                </a>
+                                                <a href="{{ task_info.files.json }}" class="file-link">
+                                                    <i class="bi bi-filetype-json file-icon"></i> JSON
+                                                </a>
+                                            </div>
+                                            <div class="mt-2 text-muted small">
+                                                Завершено: {{ task_info.completed_at }}
+                                            </div>
+                                        {% endif %}
+                                        
+                                        <a href="/task/{{ task_id }}" class="btn btn-sm btn-outline-primary mt-2">
+                                            Подробнее
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="alert alert-info">
+                                Нет активных SEO задач. Создайте новую задачу, чтобы начать анализ.
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="tab-pane fade" id="feeds" role="tabpanel">
+                        {% if feed_tasks %}
+                            {% for task_id, task_info in feed_tasks.items() %}
+                                <div class="task-card card mb-3">
+                                    <div class="card-body">
+                                        <h6 class="card-title d-flex justify-content-between align-items-center">
+                                            Задача #{{ task_id[:8] }}
+                                            <span class="badge status-badge {{ task_info.status }}">
+                                                {% if task_info.status == "pending" %}
+                                                    В очереди
+                                                {% elif task_info.status == "in_progress" %}
+                                                    В процессе
+                                                {% elif task_info.status == "processing" %}
+                                                    Обработка
+                                                {% elif task_info.status == "generating" %}
+                                                    Генерация
+                                                {% elif task_info.status == "completed" %}
+                                                    Завершено
+                                                {% elif task_info.status == "error" %}
+                                                    Ошибка
+                                                {% else %}
+                                                    {{ task_info.status }}
+                                                {% endif %}
+                                            </span>
+                                        </h6>
+                                        <p class="card-text">{{ task_info.message }}</p>
+                                        
+                                        {% if task_info.status == "completed" and task_info.files %}
+                                            <div class="mt-3">
+                                                <strong>Результаты:</strong>
+                                                {% if task_info.files.xml %}
+                                                <a href="{{ task_info.files.xml }}" class="file-link">
+                                                    <i class="bi bi-filetype-xml file-icon text-danger"></i> XML
+                                                </a>
+                                                {% endif %}
+                                                
+                                                {% if task_info.files.csv %}
+                                                <a href="{{ task_info.files.csv }}" class="file-link">
+                                                    <i class="bi bi-filetype-csv file-icon text-success"></i> CSV
+                                                </a>
+                                                {% endif %}
+                                                
+                                                {% if task_info.files.json %}
+                                                <a href="{{ task_info.files.json }}" class="file-link">
+                                                    <i class="bi bi-filetype-json file-icon text-primary"></i> JSON
+                                                </a>
+                                                {% endif %}
+                                                
+                                                {% if task_info.files.yml %}
+                                                <a href="{{ task_info.files.yml }}" class="file-link">
+                                                    <i class="bi bi-filetype-yml file-icon text-warning"></i> YML
+                                                </a>
+                                                {% endif %}
+                                            </div>
+                                            <div class="mt-2 text-muted small">
+                                                Завершено: {{ task_info.completed_at }}
+                                            </div>
+                                        {% endif %}
+                                        
+                                        <a href="/task/{{ task_id }}" class="btn btn-sm btn-outline-primary mt-2">
+                                            Подробнее
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="alert alert-info">
+                                Нет активных задач для фидов. Перейдите на страницу фидов, чтобы создать новую задачу.
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

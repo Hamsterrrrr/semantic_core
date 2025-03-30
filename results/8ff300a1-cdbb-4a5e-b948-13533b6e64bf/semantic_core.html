@@ -1,0 +1,877 @@
+
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="utf-8">
+                <title>Семантическое ядро</title>
+                <style>
+                    body { font-family: Arial, sans-serif; margin: 20px; }
+                    h1 { color: #333; }
+                    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+                    th { background-color: #f2f2f2; text-align: left; padding: 8px; }
+                    td { border: 1px solid #ddd; padding: 8px; }
+                    tr:nth-child(even) { background-color: #f9f9f9; }
+                    .category { margin-top: 30px; }
+                    .high { color: green; }
+                    .medium { color: orange; }
+                    .low { color: red; }
+                </style>
+            </head>
+            <body>
+                <h1>Отчет по семантическому ядру</h1>
+                <p>Дата создания: 30.03.2025 17:00</p>
+            
+                <h2>Общая статистика</h2>
+                <table>
+                    <tr>
+                        <th>Категория</th>
+                        <th>Количество фраз</th>
+                        <th>Среднее количество показов</th>
+                    </tr>
+            
+                    <tr>
+                        <td>Легковые автомобили</td>
+                        <td>50</td>
+                        <td>963833</td>
+                    </tr>
+                
+                    <tr>
+                        <td>Коммерческий транспорт</td>
+                        <td>50</td>
+                        <td>224524</td>
+                    </tr>
+                
+                    <tr>
+                        <td>Электромобили</td>
+                        <td>50</td>
+                        <td>116005</td>
+                    </tr>
+                
+                    <tr>
+                        <td>Автозапчасти и сельхозтехника</td>
+                        <td>5</td>
+                        <td>6000</td>
+                    </tr>
+                </table>
+                    <div class="category">
+                        <h2>Категория: Легковые автомобили</h2>
+                        <table>
+                            <tr>
+                                <th>Фраза</th>
+                                <th>Показы</th>
+                            </tr>
+                
+                        <tr>
+                            <td>машина</td>
+                            <td class="high">35544888</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>car</td>
+                            <td class="high">1931213</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>auto</td>
+                            <td class="high">1227082</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>auto</td>
+                            <td class="high">1227082</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>машина ли</td>
+                            <td class="high">1148706</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>машина ли</td>
+                            <td class="high">1148706</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>легковой автомобиль</td>
+                            <td class="high">931948</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>иномарка</td>
+                            <td class="high">374422</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>иномарка</td>
+                            <td class="high">374422</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>марки машин</td>
+                            <td class="high">352216</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>марки машин</td>
+                            <td class="high">352216</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>авто россия</td>
+                            <td class="high">301430</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>большие машины</td>
+                            <td class="high">227444</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>машина ест машину</td>
+                            <td class="high">220333</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>машина ест машину</td>
+                            <td class="high">220333</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>автотранспорт</td>
+                            <td class="high">164073</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>виды машин</td>
+                            <td class="high">154143</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>машина ваз</td>
+                            <td class="high">152982</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>что такое машина</td>
+                            <td class="high">148820</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>автомобильный транспорт</td>
+                            <td class="high">144302</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>прицеп для легкового автомобиля</td>
+                            <td class="high">143981</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>автомашина</td>
+                            <td class="high">140014</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>классы машин</td>
+                            <td class="high">117732</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>классы машин</td>
+                            <td class="high">117732</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>купить легковой автомобиль</td>
+                            <td class="high">115360</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>легковой автомобиль какая</td>
+                            <td class="high">109332</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>крутые машины</td>
+                            <td class="high">89445</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>красивые машины</td>
+                            <td class="high">86886</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>какую машину купить</td>
+                            <td class="high">83984</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>марки авто</td>
+                            <td class="high">77010</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>марки авто</td>
+                            <td class="high">77010</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>купить прицеп для легкового автомобиля</td>
+                            <td class="high">73249</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>авто все</td>
+                            <td class="high">68194</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>дорогой легковой автомобиль</td>
+                            <td class="high">67928</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>движение легковых автомобилей</td>
+                            <td class="high">65734</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>стоимость авто</td>
+                            <td class="high">64636</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>водитель легкового автомобиля</td>
+                            <td class="high">61698</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>автопром</td>
+                            <td class="high">60283</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>автопром</td>
+                            <td class="high">60283</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>1 легковой автомобиль</td>
+                            <td class="high">51875</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>легковой автомобиль 4 4</td>
+                            <td class="high">18270</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>легковые автомобили 2024</td>
+                            <td class="high">17748</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>луномосик новые серии 2025</td>
+                            <td class="high">16632</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>2 только легковому автомобилю</td>
+                            <td class="high">14746</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>10 легковых автомобилей</td>
+                            <td class="high">10353</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>model car</td>
+                            <td class="high">9428</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>легковой автомобиль 1 4</td>
+                            <td class="high">8748</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>топ 5 машин</td>
+                            <td class="high">7903</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>b легковые автомобили</td>
+                            <td class="high">5476</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>легковые автомобили 8 на 8</td>
+                            <td class="medium">3253</td>
+                        </tr>
+                    
+                        </table>
+                    </div>
+                
+                    <div class="category">
+                        <h2>Категория: Коммерческий транспорт</h2>
+                        <table>
+                            <tr>
+                                <th>Фраза</th>
+                                <th>Показы</th>
+                            </tr>
+                
+                        <tr>
+                            <td>грузовой</td>
+                            <td class="high">2082304</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>грузовой</td>
+                            <td class="high">2082304</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>грузовик</td>
+                            <td class="high">1178773</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>грузовик</td>
+                            <td class="high">1178773</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>пикаб</td>
+                            <td class="high">959748</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>грузовой автомобиль</td>
+                            <td class="high">618278</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>где автобус</td>
+                            <td class="high">596900</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>фургон</td>
+                            <td class="high">364336</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>фургон</td>
+                            <td class="high">364336</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>большие машины</td>
+                            <td class="high">227444</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>грузовая машина</td>
+                            <td class="high">175006</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>грузовая машина</td>
+                            <td class="high">175006</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>автотранспорт</td>
+                            <td class="high">164073</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>виды машин</td>
+                            <td class="high">154143</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>б у авто</td>
+                            <td class="high">129779</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>транспортная инфраструктура</td>
+                            <td class="high">78909</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>транспортная инфраструктура</td>
+                            <td class="high">78909</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>pickup</td>
+                            <td class="high">58513</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>типы машин</td>
+                            <td class="high">57198</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>pick up</td>
+                            <td class="high">54373</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>рейсовый автобус</td>
+                            <td class="high">37662</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>транспортные технологии</td>
+                            <td class="high">32358</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>коммерческий транспорт</td>
+                            <td class="high">30790</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>грузовой фургон</td>
+                            <td class="high">24367</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>грузовой фургон</td>
+                            <td class="high">24367</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>грузовой фургон</td>
+                            <td class="high">24367</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>грузовой фургон</td>
+                            <td class="high">24367</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>автобус маз</td>
+                            <td class="high">22550</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>т авто</td>
+                            <td class="high">21674</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>тип транспортного средства</td>
+                            <td class="high">19939</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>обычный автобус</td>
+                            <td class="high">15937</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>оне 43 еду ру</td>
+                            <td class="high">15533</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>автофургон</td>
+                            <td class="high">15456</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>автофургон</td>
+                            <td class="high">15456</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>лизинг что это</td>
+                            <td class="high">12975</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>автоб</td>
+                            <td class="high">10895</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>патп 1</td>
+                            <td class="high">10189</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>изотермический фургон</td>
+                            <td class="high">9733</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>еврофура</td>
+                            <td class="high">9438</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>еврофура</td>
+                            <td class="high">9438</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>автотехник</td>
+                            <td class="high">9115</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>транспортная инфраструктура это</td>
+                            <td class="high">6674</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>транспортная инфраструктура это</td>
+                            <td class="high">6674</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>вы обязаны уступить дорогу грузовому автомобилю</td>
+                            <td class="high">6392</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>баз грузовик</td>
+                            <td class="high">5728</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>транспор</td>
+                            <td class="high">5475</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>самолетом поездом машиной</td>
+                            <td class="high">5063</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>купить коммерческий транспорт</td>
+                            <td class="high">5004</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>вы должны уступить дорогу грузовому автомобилю</td>
+                            <td class="medium">4748</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>вы должны уступить дорогу грузовому автомобилю</td>
+                            <td class="medium">4748</td>
+                        </tr>
+                    
+                        </table>
+                    </div>
+                
+                    <div class="category">
+                        <h2>Категория: Электромобили</h2>
+                        <table>
+                            <tr>
+                                <th>Фраза</th>
+                                <th>Показы</th>
+                            </tr>
+                
+                        <tr>
+                            <td>н 1</td>
+                            <td class="high">1493434</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>электрон</td>
+                            <td class="high">1251902</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>v 1</td>
+                            <td class="high">498982</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>электромобиль</td>
+                            <td class="high">392066</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>купить аккумуляторную</td>
+                            <td class="high">366044</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>машинки купить</td>
+                            <td class="high">342458</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>tesla</td>
+                            <td class="high">181027</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>еду электронный</td>
+                            <td class="high">151995</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>лесные пожары</td>
+                            <td class="high">120279</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>электрические машины</td>
+                            <td class="high">93986</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>спорткар</td>
+                            <td class="high">69778</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>купить электро</td>
+                            <td class="high">68427</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>умный транспорт</td>
+                            <td class="high">59914</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>точечный электрический заряд</td>
+                            <td class="high">59766</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>электрокар</td>
+                            <td class="high">50749</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>электрокары</td>
+                            <td class="high">50749</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>электрокар</td>
+                            <td class="high">50749</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>электрокар</td>
+                            <td class="high">50749</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>мультики про машинки для мальчиков</td>
+                            <td class="high">49701</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>электромобиль детский</td>
+                            <td class="high">49691</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>купить электромобиль</td>
+                            <td class="high">47392</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>электрический автомобиль</td>
+                            <td class="high">33463</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>тачки 1 смотреть</td>
+                            <td class="high">33434</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>пожар в лесу</td>
+                            <td class="high">26349</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>электробайк</td>
+                            <td class="high">26207</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>история игрушек 1</td>
+                            <td class="high">24832</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>тачки 1 смотреть онлайн</td>
+                            <td class="high">22865</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>тачки 1 смотреть онлайн бесплатно</td>
+                            <td class="high">21316</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>назад в будущее 1</td>
+                            <td class="high">20331</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>самые свежие новинки музыки 2025</td>
+                            <td class="high">14295</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>смартфоны новинки 2025</td>
+                            <td class="high">10299</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>электромобили 2025</td>
+                            <td class="high">9172</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>слушать новинки 2025 самые свежие</td>
+                            <td class="high">8792</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>tesla model s</td>
+                            <td class="high">8287</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>мод на машины 1.20 1</td>
+                            <td class="high">6697</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>электромобили 2024</td>
+                            <td class="high">5547</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>луноход 1</td>
+                            <td class="medium">4268</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>юфл 1</td>
+                            <td class="medium">2744</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>электромобиль 3</td>
+                            <td class="medium">2659</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>1 электромобиль</td>
+                            <td class="medium">2600</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>электромобиль 2</td>
+                            <td class="medium">2371</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>электромобиль 5</td>
+                            <td class="medium">2276</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>электромобиль 9</td>
+                            <td class="medium">1859</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>электромобиль ora</td>
+                            <td class="medium">1726</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>электромобиль 4 4</td>
+                            <td class="medium">1677</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>электромобиль 7</td>
+                            <td class="medium">1640</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>электромобиль 11</td>
+                            <td class="medium">1493</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>электромобиль 6</td>
+                            <td class="medium">1405</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>10 электромобилей</td>
+                            <td class="medium">1041</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>i pro электромобиль</td>
+                            <td class="low">780</td>
+                        </tr>
+                    
+                        </table>
+                    </div>
+                
+                    <div class="category">
+                        <h2>Категория: Автозапчасти и сельхозтехника</h2>
+                        <table>
+                            <tr>
+                                <th>Фраза</th>
+                                <th>Показы</th>
+                            </tr>
+                
+                        <tr>
+                            <td>Автозапчасти и сельхозтехника цена</td>
+                            <td class="high">10000</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>Автозапчасти и сельхозтехника купить</td>
+                            <td class="high">8000</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>Автозапчасти и сельхозтехника недорого</td>
+                            <td class="high">6000</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>Автозапчасти и сельхозтехника москва</td>
+                            <td class="medium">4000</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>Автозапчасти и сельхозтехника отзывы</td>
+                            <td class="medium">2000</td>
+                        </tr>
+                    
+                        </table>
+                    </div>
+                
+            </body>
+            </html>
+            

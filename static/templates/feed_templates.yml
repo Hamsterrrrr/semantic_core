@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<yml_catalog date="2023-11-05 12:00:00">
+  <shop>
+    <name>Мой магазин</name>
+    <company>ООО Рога и Копыта</company>
+    <url>https://example.com</url>
+    <currencies>
+      <currency id="RUB" rate="1"/>
+    </currencies>
+    <categories>
+      <category id="1">Электроника</category>
+      <category id="2" parentId="1">Смартфоны</category>
+      <category id="3" parentId="1">Наушники</category>
+      <category id="4">Компьютеры</category>
+      <category id="5" parentId="4">Ноутбуки</category>
+      <category id="6" parentId="1">Телевизоры</category>
+      <category id="7">Бытовая техника</category>
+      <category id="8" parentId="7">Кофемашины</category>
+      <category id="9" parentId="7">Пылесосы</category>
+      <category id="10" parentId="7">Холодильники</category>
+    </categories>
+    <offers>
+      <offer id="1" available="true">
+        <name>Смартфон Samsung Galaxy S21</name>
+        <description>6.2-дюймовый экран 8 ГБ ОЗУ 128 ГБ памяти</description>
+        <price>59990.00</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>2</categoryId>
+        <picture>https://example.com/images/s21.jpg</picture>
+        <vendor>Samsung</vendor>
+        <barcode>8801643992842</barcode>
+        <param name="Цвет">Черный</param>
+        <param name="Память">128 ГБ</param>
+        <param name="ОЗУ">8 ГБ</param>
+      </offer>
+      <offer id="2" available="true">
+        <name>Наушники Apple AirPods Pro</name>
+        <description>Беспроводные наушники с шумоподавлением</description>
+        <price>19990.00</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>3</categoryId>
+        <picture>https://example.com/images/airpods.jpg</picture>
+        <vendor>Apple</vendor>
+        <barcode>190199246850</barcode>
+        <param name="Цвет">Белый</param>
+        <param name="Тип">True Wireless</param>
+      </offer>
+      <offer id="3" available="true">
+        <name>Ноутбук HP Pavilion 15</name>
+        <description>15.6-дюймовый экран Intel Core i5 8 ГБ ОЗУ 512 ГБ SSD</description>
+        <price>54990.00</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>5</categoryId>
+        <picture>https://example.com/images/hp.jpg</picture>
+        <vendor>HP</vendor>
+        <barcode>194850365904</barcode>
+        <param name="Цвет">Серебристый</param>
+        <param name="Процессор">Intel Core i5</param>
+        <param name="Диагональ экрана">15.6 дюймов</param>
+      </offer>
+    </offers>
+  </shop>
+</yml_catalog>

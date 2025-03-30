@@ -1,0 +1,11 @@
+id,title,description,price,currency,image_link,category,availability,brand,gtin,condition,link
+1,Смартфон Samsung Galaxy S21,6.2-дюймовый экран 8 ГБ ОЗУ 128 ГБ памяти,59990.0,RUB,https://example.com/images/s21.jpg,Электроника > Смартфоны,in stock,Samsung,8801643992842,new,https://example.com/products/samsung-s21
+2,Наушники Apple AirPods Pro,Беспроводные наушники с шумоподавлением,19990.0,RUB,https://example.com/images/airpods.jpg,Электроника > Наушники,in stock,Apple,190199246850,new,https://example.com/products/airpods-pro
+3,Ноутбук HP Pavilion 15,15.6-дюймовый экран Intel Core i5 8 ГБ ОЗУ 512 ГБ SSD,54990.0,RUB,https://example.com/images/hp.jpg,Компьютеры > Ноутбуки,in stock,HP,194850365904,new,https://example.com/products/hp-pavilion-15
+4,Телевизор LG OLED55C1,55-дюймовый OLED 4K Smart TV,99990.0,RUB,https://example.com/images/lg-tv.jpg,Электроника > Телевизоры,in stock,LG,719192633460,new,https://example.com/products/lg-oled55c1
+5,Кофемашина DeLonghi Magnifica S,Автоматическая кофемашина с капучинатором,34990.0,RUB,https://example.com/images/delonghi.jpg,Бытовая техника > Кофемашины,in stock,DeLonghi,8004399326187,new,https://example.com/products/delonghi-magnifica
+6,Фотоаппарат Canon EOS 90D,32.5MP DSLR камера с 4K видео,89990.0,RUB,https://example.com/images/canon.jpg,Электроника > Фотоаппараты,in stock,Canon,4549292137392,new,https://example.com/products/canon-eos-90d
+7,Пылесос Dyson V11,Беспроводной пылесос с циклонной фильтрацией,44990.0,RUB,https://example.com/images/dyson.jpg,Бытовая техника > Пылесосы,in stock,Dyson,5025155041130,new,https://example.com/products/dyson-v11
+8,Умные часы Apple Watch Series 7,45мм дисплей с поддержкой ЭКГ,36990.0,RUB,https://example.com/images/apple-watch.jpg,Электроника > Умные часы,in stock,Apple,190199915190,new,https://example.com/products/apple-watch-7
+9,Игровая консоль PlayStation 5,Консоль с 825 ГБ SSD и контроллером DualSense,49990.0,RUB,https://example.com/images/ps5.jpg,Электроника > Игровые консоли,limited availability,Sony,711719541028,new,https://example.com/products/playstation-5
+10,Холодильник Samsung Family Hub,Двухдверный холодильник с сенсорным экраном,129990.0,RUB,https://example.com/images/samsung-fridge.jpg,Бытовая техника > Холодильники,in stock,Samsung,8806090523984,new,https://example.com/products/samsung-family-hub

@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+
+{% block head %}
+<meta http-equiv="refresh" content="360" data-status="{{ task_info.status }}">
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center 
+                {% if task_info.status == 'completed' %}bg-success text-white
+                {% elif task_info.status == 'error' %}bg-danger text-white
+                {% elif task_info.status == 'not_found' %}bg-warning
+                {% else %}bg-primary text-white{% endif %}">
+        <h5 class="mb-0">
+            {% if task_type == 'seo' %}
+                Статус SEO задачи #{{ task_id[:8] }}
+            {% elif task_type == 'feed' %}
+                Статус задачи по фидам #{{ task_id[:8] }}
+            {% else %}
+                Статус задачи #{{ task_id[:8] }}
+            {% endif %}
+        </h5>
+        <span class="badge bg-light text-dark">{{ task_info.status }}</span>
+    </div>
+    <div class="card-body">
+        <div class="progress mb-3" id="progressBar" 
+             {% if task_info.status == 'completed' or task_info.status == 'error' %}style="display:none"{% endif %}>
+            <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                 role="progressbar" style="width: 100%"></div>
+        </div>
+        
+        <h5>Информация о задаче:</h5>
+        <div class="alert 
+             {% if task_info.status == 'completed' %}alert-success
+             {% elif task_info.status == 'error' %}alert-danger
+             {% elif task_info.status == 'not_found' %}alert-warning
+             {% else %}alert-info{% endif %}">
+            {{ task_info.message }}
+        </div>
+        
+        {% if task_info.status == "completed" and task_info.files %}
+            <div class="card mt-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Результаты</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% if task_type == 'seo' %}
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-header">CSV</div>
+                                    <div class="card-body">
+                                        <p>Файл CSV с семантическим ядром для импорта в Excel или Google Sheets</p>
+                                        <a href="{{ task_info.files.csv }}" class="btn btn-outline-primary" download>
+                                            <i class="bi bi-download"></i> Скачать CSV
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-header">Excel</div>
+                                    <div class="card-body">
+                                        <p>Файл Excel с форматированием и несколькими листами</p>
+                                        <a href="{{ task_info.files.xlsx }}" class="btn btn-outline-success" download>
+                                            <i class="bi bi-download"></i> Скачать Excel
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-header">HTML</div>
+                                    <div class="card-body">
+                                        <p>HTML-отчет с интерактивными элементами</p>
+                                        <a href="{{ task_info.files.html }}" class="btn btn-outline-info" target="_blank">
+                                            <i class="bi bi-eye"></i> Открыть отчет
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-header">JSON</div>
+                                    <div class="card-body">
+                                        <p>Полные данные в формате JSON для разработчиков</p>
+                                        <a href="{{ task_info.files.json }}" class="btn btn-outline-secondary" download>
+                                            <i class="bi bi-download"></i> Скачать JSON
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% elif task_type == 'feed' %}
+                            {% if task_info.files.xml %}
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-header">XML</div>
+                                    <div class="card-body">
+                                        <p>Фид в формате XML для большинства систем</p>
+                                        <a href="{{ task_info.files.xml }}" class="btn btn-outline-danger" download>
+                                            <i class="bi bi-download"></i> Скачать XML
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            
+                            {% if task_info.files.csv %}
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-header">CSV</div>
+                                    <div class="card-body">
+                                        <p>Фид в формате CSV для универсального использования</p>
+                                        <a href="{{ task_info.files.csv }}" class="btn btn-outline-success" download>
+                                            <i class="bi bi-download"></i> Скачать CSV
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            
+                            {% if task_info.files.json %}
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-header">JSON</div>
+                                    <div class="card-body">
+                                        <p>Фид в формате JSON для API и интеграций</p>
+                                        <a href="{{ task_info.files.json }}" class="btn btn-outline-primary" download>
+                                            <i class="bi bi-download"></i> Скачать JSON
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            
+                            {% if task_info.files.yml %}
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-header">YML</div>
+                                    <div class="card-body">
+                                        <p>Фид в формате YML для Яндекс.Маркет</p>
+                                        <a href="{{ task_info.files.yml }}" class="btn btn-outline-warning" download>
+                                            <i class="bi bi-download"></i> Скачать YML
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-muted mt-3">
+                Задача завершена: {{ task_info.completed_at }}
+            </div>
+        {% endif %}
+        
+        <div class="mt-4">
+            <a href="/" class="btn btn-primary">
+                <i class="bi bi-arrow-left"></i> Вернуться на главную
+            </a>
+            
+            {% if task_type == 'feed' %}
+            <a href="/feeds" class="btn btn-outline-primary">
+                <i class="bi bi-arrow-left"></i> К странице фидов
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const status = document.querySelector('meta[http-equiv="refresh"]').getAttribute('data-status');
+        const progressBar = document.getElementById('progressBar');
+        
+        // Отключаем автообновление, если задача завершена или произошла ошибка
+        if (status === 'completed' || status === 'error' || status === 'not_found') {
+            document.querySelector('meta[http-equiv="refresh"]').remove();
+            if (progressBar) {
+                progressBar.style.display = 'none';
+            }
+        }
+    });
+</script>
+{% endblock %} 

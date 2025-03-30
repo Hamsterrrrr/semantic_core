@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Создать фиды для товаров/услуг</h5>
+            </div>
+            <div class="card-body">
+                <form action="/submit-feed" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="file" class="form-label">Файл с данными товаров</label>
+                        <input type="file" class="form-control" id="file" name="file" required accept=".csv,.xlsx,.xls">
+                        <div class="form-text">
+                            Загрузите файл в формате CSV или Excel с данными товаров. 
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#templateModal">
+                                Скачать шаблон
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="category_type" class="form-label">Категория товаров</label>
+                        <select class="form-select" id="category_type" name="category_type">
+                            <option value="">Общий формат (без специализации)</option>
+                            <option value="clothing">Одежда и обувь</option>
+                            <option value="electronics">Электроника</option>
+                            <option value="food">Продукты питания</option>
+                            <option value="books">Книги и медиа</option>
+                            <option value="furniture">Мебель</option>
+                        </select>
+                        <div class="form-text">
+                            Выберите категорию товаров для оптимизации структуры фида
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <h6 class="alert-heading">Требования к файлу:</h6>
+                        <ul class="mb-0">
+                            <li>Столбцы должны включать: id, title, description, price, image_link, etc.</li>
+                            <li>Первая строка должна содержать названия столбцов</li>
+                            <li>Каждая строка - отдельный товар/услуга</li>
+                        </ul>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Создать фиды</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">О фидах</h5>
+            </div>
+            <div class="card-body">
+                <p>Фиды (feeds) - это файлы, содержащие структурированную информацию о товарах или услугах. Они используются для:</p>
+                <ul>
+                    <li>Интеграции с маркетплейсами и агрегаторами (Google Merchant Center, Яндекс.Маркет)</li>
+                    <li>Создания товарных объявлений в рекламных сетях</li>
+                    <li>Синхронизации данных между разными платформами</li>
+                </ul>
+                <p>Сервис генерирует фиды в следующих форматах:</p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-2">
+                            <div class="card-body py-2">
+                                <h6 class="mb-0"><i class="bi bi-filetype-xml text-danger"></i> XML</h6>
+                                <small class="text-muted">Для большинства систем</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-2">
+                            <div class="card-body py-2">
+                                <h6 class="mb-0"><i class="bi bi-filetype-csv text-success"></i> CSV</h6>
+                                <small class="text-muted">Универсальный формат</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-2">
+                            <div class="card-body py-2">
+                                <h6 class="mb-0"><i class="bi bi-filetype-json text-primary"></i> JSON</h6>
+                                <small class="text-muted">Для API и веб-приложений</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-2">
+                            <div class="card-body py-2">
+                                <h6 class="mb-0"><i class="bi bi-filetype-yml text-warning"></i> YML</h6>
+                                <small class="text-muted">Для Яндекс.Маркет</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">Последние задачи</h5>
+            </div>
+            <div class="card-body">
+                {% if feed_tasks %}
+                    {% for task_id, task_info in feed_tasks.items() %}
+                        <div class="task-card card mb-3">
+                            <div class="card-body">
+                                <h6 class="card-title d-flex justify-content-between align-items-center">
+                                    Задача #{{ task_id[:8] }}
+                                    <span class="badge status-badge {{ task_info.status }}">
+                                        {% if task_info.status == "pending" %}
+                                            В очереди
+                                        {% elif task_info.status == "in_progress" %}
+                                            В процессе
+                                        {% elif task_info.status == "processing" %}
+                                            Обработка
+                                        {% elif task_info.status == "generating" %}
+                                            Генерация
+                                        {% elif task_info.status == "completed" %}
+                                            Завершено
+                                        {% elif task_info.status == "error" %}
+                                            Ошибка
+                                        {% else %}
+                                            {{ task_info.status }}
+                                        {% endif %}
+                                    </span>
+                                </h6>
+                                <p class="card-text">{{ task_info.message }}</p>
+                                
+                                {% if task_info.status == "completed" and task_info.files %}
+                                    <div class="mt-3">
+                                        <strong>Сгенерированные фиды:</strong>
+                                        {% if task_info.files.xml %}
+                                        <a href="{{ task_info.files.xml }}" class="file-link">
+                                            <i class="bi bi-filetype-xml file-icon text-danger"></i> XML
+                                        </a>
+                                        {% endif %}
+                                        
+                                        {% if task_info.files.csv %}
+                                        <a href="{{ task_info.files.csv }}" class="file-link">
+                                            <i class="bi bi-filetype-csv file-icon text-success"></i> CSV
+                                        </a>
+                                        {% endif %}
+                                        
+                                        {% if task_info.files.json %}
+                                        <a href="{{ task_info.files.json }}" class="file-link">
+                                            <i class="bi bi-filetype-json file-icon text-primary"></i> JSON
+                                        </a>
+                                        {% endif %}
+                                        
+                                        {% if task_info.files.yml %}
+                                        <a href="{{ task_info.files.yml }}" class="file-link">
+                                            <i class="bi bi-filetype-yml file-icon text-warning"></i> YML
+                                        </a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="mt-2 text-muted small">
+                                        Завершено: {{ task_info.completed_at }}
+                                    </div>
+                                {% endif %}
+                                
+                                <a href="/task/{{ task_id }}" class="btn btn-sm btn-outline-primary mt-2">
+                                    Подробнее
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-info">
+                        Нет активных задач. Создайте новую задачу для генерации фидов.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно с шаблоном -->
+<div class="modal fade" id="templateModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Шаблон для фида</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Скачайте шаблон в нужном формате:</p>
+                <div class="d-flex gap-2">
+                    <a href="/static/templates/feed_template.csv" class="btn btn-outline-success" download>
+                        <i class="bi bi-filetype-csv"></i> CSV шаблон
+                    </a>
+                    <a href="/static/templates/feed_template.xlsx" class="btn btn-outline-primary" download>
+                        <i class="bi bi-filetype-xlsx"></i> Excel шаблон
+                    </a>
+                </div>
+                
+                <div class="mt-4">
+                    <h6>Примерная структура фида:</h6>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>title</th>
+                                    <th>description</th>
+                                    <th>price</th>
+                                    <th>currency</th>
+                                    <th>image_link</th>
+                                    <th>category</th>
+                                    <th>availability</th>
+                                    <th>brand</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Смартфон Samsung Galaxy S21</td>
+                                    <td>6.2-дюймовый экран, 8 ГБ ОЗУ</td>
+                                    <td>59990.00</td>
+                                    <td>RUB</td>
+                                    <td>https://example.com/s21.jpg</td>
+                                    <td>Электроника > Смартфоны</td>
+                                    <td>in stock</td>
+                                    <td>Samsung</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Наушники Apple AirPods Pro</td>
+                                    <td>Беспроводные наушники с шумоподавлением</td>
+                                    <td>19990.00</td>
+                                    <td>RUB</td>
+                                    <td>https://example.com/airpods.jpg</td>
+                                    <td>Электроника > Наушники</td>
+                                    <td>in stock</td>
+                                    <td>Apple</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
